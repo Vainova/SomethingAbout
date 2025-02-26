@@ -8,6 +8,7 @@ public class Main {
         checkSumSign();
         printColor();
         compareNumbers();
+
         checkSumSign1();
         printConsole(2);
         printConsole1(7);
