@@ -1,6 +1,5 @@
 package Student;
 
-
 public class Student {
     private String name;
     private int group;
@@ -36,9 +35,3 @@ public class Student {
         this.course = course;
     }
 }
-
-
-
-
-
-
