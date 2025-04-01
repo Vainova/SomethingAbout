@@ -1,5 +1,7 @@
 import OnlineReplenishmentPack.OnlineReplenishment;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Description;
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,14 +22,19 @@ public  class CheckAvailabilityOfLogosTest {
 
     @Test
     @DisplayName("Проверка наличия логотипов платежных систем")
+    @Description("Тест проверяет наличие логотипов различных платежных систем на странице")
+
     public void checkAvailabilityOfLogos() {
+         OnlineReplenishment onlineReplenishment = new OnlineReplenishment(driver);
 
-        OnlineReplenishment onlineReplenishment = new OnlineReplenishment(driver);
-
-        assertTrue(onlineReplenishment.checkAvailabilityOfVisa());
-        assertTrue(onlineReplenishment.checkAvailabilityOfVerifiedByVisa());
-        assertTrue(onlineReplenishment.checkAvailabilityOfMasterCard());
-        assertTrue(onlineReplenishment.checkAvailabilityOfMasterCardSecureCode());
-        assertTrue(onlineReplenishment.checkAvailabilityOfBelcart());
+        assertLogoAvailability(onlineReplenishment, "Visa", onlineReplenishment.checkAvailabilityOfVisa());
+        assertLogoAvailability(onlineReplenishment, "Verified By Visa", onlineReplenishment.checkAvailabilityOfVerifiedByVisa());
+        assertLogoAvailability(onlineReplenishment, "MasterCard", onlineReplenishment.checkAvailabilityOfMasterCard());
+        assertLogoAvailability(onlineReplenishment, "MasterCard SecureCode", onlineReplenishment.checkAvailabilityOfMasterCardSecureCode());
+        assertLogoAvailability(onlineReplenishment, "Belcart", onlineReplenishment.checkAvailabilityOfBelcart());
+    }
+    @Step("Проверка наличия логотипа ")
+    private void assertLogoAvailability(OnlineReplenishment onlineReplenishment, String logoName, boolean isAvailable) {
+        assertTrue(isAvailable, logoName + " Логотип должнен быть");
     }
 }
