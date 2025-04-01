@@ -2,6 +2,7 @@ import CookieFilesAccept.CookieAcceptWindow;
 import OnlineReplenishmentPack.OnlineReplenishment;
 import PopupPack.PopupElement;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,6 +32,9 @@ public class PopupTest {
 
     @Test
     @DisplayName("Проверка Popup")
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("Проверка корректности работы Popup с оплатой.")
+    @Story("Проверка функциональности Popup")
     public void checkPopup() {
         PopupElement popupElement = new PopupElement(driver);
 
@@ -39,7 +43,12 @@ public class PopupTest {
 
         popupElement.switchToIframeElement();
 
-        assertEquals("1.00 BYN",popupElement.checkMainSumPopup());
+        validatePopupContent(popupElement);
+    }
+
+    @Step("Проверка Popup")
+    private void validatePopupContent(PopupElement popupElement) {
+        assertEquals("1.00 BYN", popupElement.checkMainSumPopup());
         assertEquals("Оплатить 1.00 BYN", popupElement.checkSumButton());
         assertEquals("Оплата: Услуги связи Номер:375297777777", popupElement.checkPhoneNumber());
         assertEquals("Номер карты", popupElement.checkPlaceholderCartNumber());
@@ -54,3 +63,4 @@ public class PopupTest {
         assertTrue(popupElement.inputPictureMirSystem());
     }
 }
+
